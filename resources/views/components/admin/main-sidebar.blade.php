@@ -3,14 +3,20 @@
       <div class="sidebar-brand">
         <a href="{{route('admin.dashboard')}}">
           <img alt="image" src="/assets/img/logo.png" class="header-logo" />
-          <span class="logo-name">Skerio</span>
+          <span class="logo-name">{{ __("Mobile Store") }}</span>
         </a>
       </div>
       <ul class="sidebar-menu">
-        <li class="menu-header">Asosiy</li>
+        <li class="menu-header">{{ __("Asosiy") }}</li>
         <li class="dropdown {{ request()->is('admin/dashboard*') ? 'active' : ''  }}">
-          <a href="{{ Route('admin.dashboard') }}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+          <a href="{{ Route('admin.dashboard') }}" class="nav-link"><i data-feather="monitor"></i><span>{{ __("Dashboard") }}</span></a>
         </li>
+
+        {{-- @can('product-list') --}}
+            <li class="dropdown {{ request()->is('admin/product-categories*') ? 'active' : ''  }}">
+                <a href="{{ route('admin.product-categories.index') }}" ><i class="fas fa-list-alt"></i><span>{{ __("Mahsulot kategoriyasi") }}</span></a>
+            </li>
+        {{-- @endcan --}}
 
         {{-- @can('product-list') --}}
             <li class="dropdown {{ request()->is('admin/products*') ? 'active' : ''  }}">
@@ -42,12 +48,6 @@
         @can('brand-list')
             <li class="dropdown {{ request()->is('admin/brands*') ? 'active' : ''  }}">
                 <a href="{{ route('admin.brands.index') }}" ><i class="fas fa-award"></i><span> Brendlar </span></a>
-            </li>
-        @endcan
-
-        @can('product-list')
-            <li class="dropdown {{ request()->is('admin/productCategories*') ? 'active' : ''  }}">
-                <a href="{{ route('admin.productCategories.index') }}" ><i class="fas fa-list-alt"></i><span>Mahsulot kategoriyasi</span></a>
             </li>
         @endcan
 
