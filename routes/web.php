@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +39,7 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function (){
     // Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
     // Route::resource('news', NewsController::class);
     // Route::resource('brands', BrandController::class);
-    // Route::resource('products', ProductController::class);
+    Route::resource('products', ProductController::class);
     // Route::resource('productCategories', ProductCategoryController::class);
     // Route::resource('sizes', SizeController::class);
     // Route::resource('team', TeamController::class);
