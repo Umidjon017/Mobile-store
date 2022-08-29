@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="formModal">Mahsulot kategoriya nomini tahrirlash</h5>
+                <h5 class="modal-title" id="formModal">{{ __("Mahsulot kategoriya nomini tahrirlash") }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,7 +14,7 @@
                 <div class="modal-body">
                 
                     <div class="form-group">
-                        <label>Nomi</label>
+                        <label>{{ __("Nomi") }}</label>
                         <input type="text" class="form-control" placeholder="Nomini kiriting" name="name"  value="{{ old('name', $product_category->name) }}" >
                         @error('name')
                             <div class="alert alert-danger">

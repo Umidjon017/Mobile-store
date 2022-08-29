@@ -17,6 +17,12 @@
                 <a href="{{ route('admin.product-categories.index') }}" ><i class="fas fa-list-alt"></i><span>{{ __("Mahsulot kategoriyasi") }}</span></a>
             </li>
         {{-- @endcan --}}
+        
+        {{-- @can('product-list') --}}
+            <li class="dropdown {{ request()->is('admin/product-categories/telephones*') ? 'active' : ''  }}">
+                <a href="{{ route('admin.product-categories.telephones.index') }}" ><i class="fas fa-list-alt"></i><span>{{ __("Telefon kategoriyasi") }}</span></a>
+            </li>
+        {{-- @endcan --}}
 
         {{-- @can('product-list') --}}
             <li class="dropdown {{ request()->is('admin/products*') ? 'active' : ''  }}">

@@ -119,20 +119,17 @@
 @endsection
 
 @section('scripts')
-    <script src={{ asset('ckeditor/ckeditor.js')}}></script>
-    <script src="{{ asset('ckeditor/adapters/jquery.js')}}"></script>
-
-    <script src="/assets/bundles/summernote/summernote-bs4.js"></script>
-    <script src="/assets/bundles/codemirror/lib/codemirror.js"></script>
-    <script src="/assets/bundles/codemirror/mode/javascript/javascript.js"></script>
-
-
-    <script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/bundles/select2/dist/js/select2.full.min.js"></script>
-    <script src="/assets/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
-    <script src="/assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="{{ asset('assets/bundles/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{ asset('assets/bundles/ckeditor/adapters/jquery.js')}}"></script>
+    <script src="{{ asset('assets/bundles/summernote/summernote-bs4.js') }}"></script>
+    <script src="{{ asset('assets/bundles/codemirror/lib/codemirror.js') }}"></script>
+    <script src="{{ asset('assets/bundles/codemirror/mode/javascript/javascript.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/bundles/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js') }}"></script>
+    <script src="{{ asset('assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
     <!-- Page Specific JS File -->
-    <script src="/assets/js/page/create-post.js"></script>
+    <script src="{{ asset('assets/js/page/create-post.js') }}"></script>
 
 
     <script>

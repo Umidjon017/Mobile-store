@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\CategoryTelephone;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\CategoryTelephone;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CategoryTelephoneRequest;
+use App\Models\ProductCategory;
 
 class CategoryTelephoneController extends Controller
 {
@@ -15,7 +18,13 @@ class CategoryTelephoneController extends Controller
      */
     public function index()
     {
-        //
+        $product_categories = ProductCategory::all();
+        $telephone_categories = CategoryTelephone::all();
+        // foreach ($telephone_categories as $item) {
+        //     dd($item->productCategories->name);
+        // }
+
+        return view('admin.category_telephones.index', compact('product_categories', 'telephone_categories'));
     }
 
     /**
@@ -34,9 +43,14 @@ class CategoryTelephoneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryTelephoneRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->name);
+        
+        $category_telephone = CategoryTelephone::create($data);
+
+        return redirect()->route('admin.product-categories.telephones.index')->with('success', $category_telephone->name . " - telefon kategoriyasi qo'shildi!");
     }
 
     /**
@@ -68,9 +82,14 @@ class CategoryTelephoneController extends Controller
      * @param  \App\Models\CategoryTelephone  $categoryTelephone
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CategoryTelephone $categoryTelephone)
+    public function update(Request $request, $id)
     {
-        //
+        $telephone_category = CategoryTelephone::find($id);
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->name);
+        $telephone_category->update($data);
+
+        return redirect()->route('admin.product-categories.telephones.index')->with('success', $telephone_category->name . ' - telefon kategoriyasi tahrirlandi!');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TelephoneSpecification extends Model
 {
@@ -44,4 +45,9 @@ class TelephoneSpecification extends Model
         'fetures_main_camera',
         'video_recording',
     ];
+
+    public function productTelephones(): BelongsTo
+    {
+        return $this->belongsTo(ProductTelephone::class, 'telephone_id');
+    }
 }

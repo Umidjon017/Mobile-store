@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\ProductCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductCategoryRequest;
-use App\Models\ProductCategory;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class ProductCategoryController extends Controller
 {
@@ -77,7 +77,7 @@ class ProductCategoryController extends Controller
      * @param  \App\Models\ProductCategory  $productCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductCategoryRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $product_category = ProductCategory::find($id);
         $data = $request->all();

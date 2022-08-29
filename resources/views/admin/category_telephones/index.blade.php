@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('css')
+    <link rel="stylesheet" href="{{ asset('assets/bundles/select2/dist/css/select2.min.css') }}">
+
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets/bundles/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
@@ -33,9 +35,9 @@
 
     <div class="col-sm-12 col-md-12 col-lg-12 mt-4">
       <div class="card">
-            {{-- @can('product_category-create') --}}
+            {{-- @can('telephone_category-create') --}}
                 <div class="card-header d-flex justify-content-between">
-                    <h5 align="center">{{ __("Mahsulot Kategoriyalari jadvali") }}</h5>
+                    <h5 align="center">{{ __("Telefon Kategoriyalari jadvali") }}</h5>
                     
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductCategory">{{ __("Qo'shish") }}</button>
                 </div>
@@ -65,6 +67,7 @@
               <thead>
                 <tr>
                     <th>#</th>
+                    {{-- <th>Telefon kategoriyasi</th> --}}
                     <th>Nomi</th>
                     <th>Slug</th>
                     <th>Created at</th>
@@ -73,18 +76,19 @@
               </thead>
 
               <tbody>
-                @foreach ($product_categories as $product_category)
+                @foreach ($telephone_categories as $telephone_category)
                 <tr >
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$product_category->name}}</td>
-                    <td>{{$product_category->slug}}</td>
-                    <td>{{$product_category->created_at}}</td>
+                    {{-- <td>{{$telephone_category->productCategories->name}}</td> --}}
+                    <td>{{$telephone_category->name}}</td>
+                    <td>{{$telephone_category->slug}}</td>
+                    <td>{{$telephone_category->created_at}}</td>
                     <td class=" d-flex justify-content-center">
                         {{-- @can('product-category.edit') --}}
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editProductCategory{{$product_category->id}}"><i class="fas fa-edit"></i></button>
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editProductCategory{{$telephone_category->id}}"><i class="fas fa-edit"></i></button>
                         {{-- @endcan --}}
-                        {{-- @can('product_category-delete') --}}
-                            <form action="{{route('admin.product-categories.destroy', $product_category->id)}}" method="POST">
+                        {{-- @can('telephone_category-delete') --}}
+                            <form action="{{route('admin.product-categories.destroy', $telephone_category->id)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger deleteCat ">
@@ -95,12 +99,12 @@
                     </td>
                 </tr>
                 
-                @include('admin.product_categories.edit')
+                @include('admin.category_telephones.edit')
 
                 @endforeach
               </tbody>
 
-              @include('admin.product_categories.create')
+              @include('admin.category_telephones.create')
 
             </table>
           </div>
@@ -116,8 +120,9 @@
 @endsection
 
 @section('scripts')
-    <script src="/assets/bundles/datatables/datatables.min.js"></script>
-    <script src="/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-    <script src="/assets/bundles/jquery-ui/jquery-ui.min.js"></script>
-    <script src="/assets/js/page/datatables.js"></script>
+    <script src="{{ asset('assets/bundles/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/bundles/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/js/page/datatables.js') }}"></script>
+    <script src="{{ asset('assets/bundles/select2/dist/js/select2.full.min.js') }}"></script>
 @endsection
