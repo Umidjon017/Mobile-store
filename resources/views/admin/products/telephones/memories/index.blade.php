@@ -14,9 +14,9 @@
       <div class="card">
             {{-- @can('color-create') --}}
                 <div class="card-header d-flex justify-content-between">
-                    <h5 align="center">{{ __("Ranglar jadvali") }}</h5>
+                    <h5 align="center">{{ __("Telefon xotiralari jadvali") }}</h5>
                     
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addColor">{{ __("Qo'shish") }}</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTelephoneMemory">{{ __("Qo'shish") }}</button>
                 </div>
             {{-- @endcan --}}
 
@@ -44,24 +44,26 @@
               <thead>
                 <tr>
                     <th>#</th>
-                    <th>Nomi</th>
+                    <th>Asosiy xotira</th>
+                    <th>Tezkor xotira</th>
                     <th>Created at</th>
                     <th>Amallar</th>
                   </tr>
               </thead>
 
               <tbody>
-                @foreach ($colors as $color)
+                @foreach ($memories as $memory)
                 <tr >
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$color->name}}</td>
-                    <td>{{$color->created_at}}</td>
+                    <td>{{$memory->memory_main}}</td>
+                    <td>{{$memory->memory_ram}}</td>
+                    <td>{{$memory->created_at}}</td>
                     <td class=" d-flex justify-content-center">
                         {{-- @can('product-category.edit') --}}
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editColor{{$color->id}}"><i class="fas fa-edit"></i></button>
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editTelephoneMemory{{$memory->id}}"><i class="fas fa-edit"></i></button>
                         {{-- @endcan --}}
-                        {{-- @can('color-delete') --}}
-                            <form action="{{route('admin.colors.destroy', $color->id)}}" method="POST">
+                        {{-- @can('memory-delete') --}}
+                            <form action="{{route('admin.colors.destroy', $memory->id)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger deleteCat ">
@@ -72,12 +74,12 @@
                     </td>
                 </tr>
                 
-                @include('admin.colors.edit')
+                @include('admin.products.telephones.memories.edit')
 
                 @endforeach
               </tbody>
 
-              @include('admin.colors.create')
+              @include('admin.products.telephones.memories.create')
 
             </table>
           </div>

@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('telephone_memories', function (Blueprint $table) {
             $table->id();
-            $table->string('memory')->unique();
+            $table->integer('memory_main')->unique();
+            $table->integer('memory_ram')->unique();
             $table->timestamps();
         });
     }

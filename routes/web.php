@@ -4,10 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\TelephoneMemoryController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductTelephoneController;
 use App\Http\Controllers\Admin\CategoryTelephoneController;
-use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,7 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function (){
     });
     Route::resource('product-telephones', ProductTelephoneController::class);
     Route::resource('colors', ColorController::class);
+    Route::resource('telephone-memories', TelephoneMemoryController::class);
 
 });
 

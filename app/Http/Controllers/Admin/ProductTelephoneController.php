@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\CategoryTelephone;
-use App\Models\ProductTelephone;
+use App\Models\Color;
 use Illuminate\Http\Request;
+use App\Models\ProductTelephone;
+use App\Models\CategoryTelephone;
+use App\Http\Controllers\Controller;
 
 class ProductTelephoneController extends Controller
 {
@@ -17,8 +18,9 @@ class ProductTelephoneController extends Controller
     public function index()
     {
         $telephone_categories = CategoryTelephone::all();
+        $colors = Color::all();
 
-        return view('admin.products.telephones.index', compact('telephone_categories'));
+        return view('admin.products.telephones.index', compact('telephone_categories', 'colors'));
     }
 
     /**

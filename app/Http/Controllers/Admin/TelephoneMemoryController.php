@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\TelephoneMemory;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\TelephoneMemory;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\TelephoneMemoryRequest;
 
 class TelephoneMemoryController extends Controller
 {
@@ -15,7 +17,9 @@ class TelephoneMemoryController extends Controller
      */
     public function index()
     {
-        //
+        $memories = TelephoneMemory::all();
+
+        return view('admin.products.telephones.memories.index', compact('memories'));
     }
 
     /**
@@ -34,9 +38,13 @@ class TelephoneMemoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TelephoneMemoryRequest $request)
     {
-        //
+        $data = $request->all();
+        $model = TelephoneMemory::create($data);
+
+        return redirect()->route('admin.telephone-memories.index')
+            ->withSuccess(__($model->name . " - telefon xotirasi qo'shildi!"));
     }
 
     /**

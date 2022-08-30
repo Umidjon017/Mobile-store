@@ -28,7 +28,7 @@
             <li class="dropdown {{ request()->is('admin/product-telephones*') ? 'active' : ''  }}">
                 <a href="{{ route('admin.product-telephones.index') }}" >
                   <i class="fas fa-boxes"></i>
-                  <span> Telefon Mahsulotlar </span>
+                  <span> {{ __("Telefon Mahsulotlar") }} </span>
                 </a>
             </li>
         {{-- @endcan --}}
@@ -36,6 +36,12 @@
         {{-- @can('product-list') --}}
         <li class="dropdown {{ request()->is('admin/colors*') ? 'active' : ''  }}">
           <a href="{{ route('admin.colors.index') }}" ><i class="fas fa-list-alt"></i><span>{{ __("Ranglar") }}</span></a>
+        </li>
+        {{-- @endcan --}}
+        
+        {{-- @can('product-list') --}}
+        <li class="dropdown {{ request()->is('admin/telephone-memories*') ? 'active' : ''  }}">
+          <a href="{{ route('admin.telephone-memories.index') }}" ><i class="fas fa-list-alt"></i><span>{{ __("Telefon xotiralari") }}</span></a>
         </li>
         {{-- @endcan --}}
 
