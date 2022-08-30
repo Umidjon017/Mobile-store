@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('admin.product-categories.update', $product_category->id) }}" method="POST">
+            <form action="{{ route('admin.product-categories.table.update', $product_category->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">

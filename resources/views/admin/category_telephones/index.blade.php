@@ -17,16 +17,10 @@
           <div class="card-body">
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a class="nav-link active" href="#">All <span class="badge badge-white">10</span></a>
+                <a class="nav-link active" href="#">Barchasi <span class="badge badge-white">{{ count($telephone_categories) }}</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Draft <span class="badge badge-primary">2</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Pending <span class="badge badge-primary">3</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Trash <span class="badge badge-primary">0</span></a>
+                <a class="nav-link" href="#">Arxivlangalar <span class="badge badge-primary">{{ count($tc_archived) }}</span></a>
               </li>
             </ul>
           </div>
@@ -50,16 +44,20 @@
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                             <span>&times;</span>
                         </button>
-                        <h5><i class="icon fas fa-check"></i></h5>
-                        {{session('success')}}
+                        <h5>
+                          <i class="icon fas fa-check"></i>
+                          {{session('success')}}
+                        </h5>
                     </div>
                 </div>
             @endif
             @if (Session::has('warning'))
                 <div class="alert alert-danger alert-dismissible show fade">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true"> <span>&times;</span> </button>
-                    <h5><i class="icon fas fa-ban"></i> </h5>
-                    {{session('warning')}}
+                    <h5>
+                      <i class="icon fas fa-ban"></i>
+                      {{session('warning')}}
+                    </h5>
                 </div>
             @endif
           <div class="table-responsive">
@@ -88,14 +86,22 @@
                             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editProductCategory{{$telephone_category->id}}"><i class="fas fa-edit"></i></button>
                         {{-- @endcan --}}
                         {{-- @can('telephone_category-delete') --}}
-                            <form action="{{route('admin.product-categories.destroy', $telephone_category->id)}}" method="POST">
+                            <form action="{{route('admin.product-categories.telephones.destroy', $telephone_category->id)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger deleteCat ">
-                                    <i class="fas fa-trash-alt"></i>
+                                <button type="submit" class="btn btn-secondary deleteCat ">
+                                  <i class="fas fa-cloud-upload-alt"></i>
                                 </button>
                             </form>
                         {{-- @endcan --}}
+
+                        <form action="{{route('admin.product-categories.telephone.forcedelete', $telephone_category->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger deleteCat ">
+                              <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 

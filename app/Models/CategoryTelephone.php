@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CategoryTelephone extends Model
 {
-    use HasFactory;
-
-    // protected $table = ['category_telephones'];
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'product_category_id',

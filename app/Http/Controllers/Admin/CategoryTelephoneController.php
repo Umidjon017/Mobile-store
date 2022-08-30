@@ -20,8 +20,9 @@ class CategoryTelephoneController extends Controller
     {
         $product_categories = ProductCategory::all();
         $telephone_categories = CategoryTelephone::all();
+        $tc_archived = CategoryTelephone::onlyTrashed()->get();
 
-        return view('admin.category_telephones.index', compact('product_categories', 'telephone_categories'));
+        return view('admin.category_telephones.index', compact('product_categories', 'telephone_categories', 'tc_archived'));
     }
 
     /**
@@ -45,9 +46,10 @@ class CategoryTelephoneController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
         
-        $category_telephone = CategoryTelephone::create($data);
+        $model = CategoryTelephone::create($data);
 
-        return redirect()->route('admin.product-categories.telephones.index')->with('success', $category_telephone->name . " - telefon kategoriyasi qo'shildi!");
+        return redirect()->route('admin.product-categories.telephones.index')
+            ->withSuccess(__($model->name . " - telefon kategoriyasi qo'shildi!"));
     }
 
     /**
@@ -81,12 +83,13 @@ class CategoryTelephoneController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $telephone_category = CategoryTelephone::find($id);
+        $model = CategoryTelephone::findOrFail($id);
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $telephone_category->update($data);
+        $model->update($data);
 
-        return redirect()->route('admin.product-categories.telephones.index')->with('success', $telephone_category->name . ' - telefon kategoriyasi tahrirlandi!');
+        return redirect()->route('admin.product-categories.telephones.index')
+            ->withSuccess(__($model->name . " - telefon kategoriyasi tahrirlandi!"));
     }
 
     /**
@@ -95,8 +98,21 @@ class CategoryTelephoneController extends Controller
      * @param  \App\Models\CategoryTelephone  $categoryTelephone
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CategoryTelephone $categoryTelephone)
+    public function destroy($id)
     {
-        //
+        $model = CategoryTelephone::findOrFail($id);
+        $model->delete();
+
+        return redirect()->route('admin.product-categories.telephones.index')
+            ->withSuccess(__($model->name . " - telefon kategoriyasi arxivlandi!"));
+    }
+
+    public function forceDelete($id)
+    {
+        $model = CategoryTelephone::findOrFail($id);
+        $model->forceDelete();
+
+        return redirect()->route('admin.product-categories.telephones.index')
+            ->withSuccess(__("Mahsulot kategoriyasi o'chirildi!"));
     }
 }

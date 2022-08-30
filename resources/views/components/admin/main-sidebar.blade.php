@@ -13,8 +13,8 @@
         </li>
 
         {{-- @can('product-list') --}}
-            <li class="dropdown {{ request()->is('admin/product-categories') ? 'active' : ''  }}">
-                <a href="{{ route('admin.product-categories.index') }}" ><i class="fas fa-list-alt"></i><span>{{ __("Mahsulot kategoriyasi") }}</span></a>
+            <li class="dropdown {{ request()->is('admin/product-categories/table') ? 'active' : ''  }}">
+                <a href="{{ route('admin.product-categories.table.index') }}" ><i class="fas fa-list-alt"></i><span>{{ __("Mahsulot kategoriyasi") }}</span></a>
             </li>
         {{-- @endcan --}}
         

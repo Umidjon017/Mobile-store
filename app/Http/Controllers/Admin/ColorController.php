@@ -77,7 +77,7 @@ class ColorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $colors = Color::find($id);
+        $colors = Color::findOrFail($id);
         $data = $request->all();
         $colors->update($data);
 
@@ -90,8 +90,11 @@ class ColorController extends Controller
      * @param  \App\Models\Color  $color
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Color $color)
+    public function destroy($id)
     {
-        //
+        $color = Color::findorFail($id);
+        $color->delete();
+        
+        return redirect()->route('admin.colors.index')->with('warning', $color->name . " - rang o'chirildi!");
     }
 }

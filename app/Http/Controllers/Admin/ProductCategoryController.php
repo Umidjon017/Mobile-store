@@ -18,8 +18,9 @@ class ProductCategoryController extends Controller
     public function index()
     {
         $product_categories = ProductCategory::all();
+        $pc_archived = ProductCategory::onlyTrashed()->get();
 
-        return view('admin.product_categories.index', compact('product_categories'));
+        return view('admin.product_categories.index', compact('product_categories', 'pc_archived'));
     }
 
     /**
@@ -43,9 +44,10 @@ class ProductCategoryController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
         
-        $product_category = ProductCategory::create($data);
+        $model = ProductCategory::create($data);
 
-        return redirect()->route('admin.product-categories.index')->with('success', $product_category->name . " - mahsulot kategoriyasi qo'shildi!");
+        return redirect()->route('admin.product-categories.table.index')
+            ->withSuccess(__($model->name . " - mahsulot kategoriyasi qo'shildi!"));
     }
 
     /**
@@ -79,12 +81,13 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product_category = ProductCategory::find($id);
+        $model = ProductCategory::findOrFail($id);
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $product_category->update($data);
+        $model->update($data);
 
-        return redirect()->route('admin.product-categories.index')->with('success', $product_category->name . ' - mahsulot Kategoriyasi tahrirlandi!');
+        return redirect()->route('admin.product-categories.table.index')
+            ->withSuccess(__($model->name . " - mahsulot kategoriyasi tahrirlandi!"));
     }
 
     /**
@@ -93,8 +96,29 @@ class ProductCategoryController extends Controller
      * @param  \App\Models\ProductCategory  $productCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductCategory $productCategory)
+    public function destroy($id)
     {
-        //
+        $model = ProductCategory::findOrFail($id);
+        $model->delete();
+
+        return redirect()->route('admin.product-categories.table.index')
+            ->withSuccess(__($model->name . " - mahsulot kategoriyasi arxivlandi!"));
+    }
+
+    public function forceDelete($id)
+    {
+        $model = ProductCategory::findOrFail($id);
+        $model->forceDelete();
+
+        return redirect()->route('admin.product-categories.table.index')
+            ->withSuccess(__("Mahsulot kategoriyasi o'chirildi!"));
+    }
+
+    public function restore($id)
+    {
+        ProductCategory::where('id', $id)->withTrashed()->restore();
+
+        return redirect()->route('admin.product-categories.table.index', ['status' => 'archived'])
+            ->withSuccess(__('User restored successfully.'));
     }
 }
