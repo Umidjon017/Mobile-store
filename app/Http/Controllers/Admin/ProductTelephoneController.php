@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CategoryTelephone;
 use App\Models\ProductTelephone;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,9 @@ class ProductTelephoneController extends Controller
      */
     public function index()
     {
-        //
+        $telephone_categories = CategoryTelephone::all();
+
+        return view('admin.products.telephones.index', compact('telephone_categories'));
     }
 
     /**

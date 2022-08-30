@@ -13,7 +13,7 @@
         </li>
 
         {{-- @can('product-list') --}}
-            <li class="dropdown {{ request()->is('admin/product-categories*') ? 'active' : ''  }}">
+            <li class="dropdown {{ request()->is('admin/product-categories') ? 'active' : ''  }}">
                 <a href="{{ route('admin.product-categories.index') }}" ><i class="fas fa-list-alt"></i><span>{{ __("Mahsulot kategoriyasi") }}</span></a>
             </li>
         {{-- @endcan --}}
@@ -25,12 +25,18 @@
         {{-- @endcan --}}
 
         {{-- @can('product-list') --}}
-            <li class="dropdown {{ request()->is('admin/products*') ? 'active' : ''  }}">
-                <a href="{{ route('admin.products.index') }}" >
+            <li class="dropdown {{ request()->is('admin/product-telephones*') ? 'active' : ''  }}">
+                <a href="{{ route('admin.product-telephones.index') }}" >
                   <i class="fas fa-boxes"></i>
-                  <span> Mahsulotlar </span>
+                  <span> Telefon Mahsulotlar </span>
                 </a>
             </li>
+        {{-- @endcan --}}
+
+        {{-- @can('product-list') --}}
+        <li class="dropdown {{ request()->is('admin/colors*') ? 'active' : ''  }}">
+          <a href="{{ route('admin.colors.index') }}" ><i class="fas fa-list-alt"></i><span>{{ __("Ranglar") }}</span></a>
+        </li>
         {{-- @endcan --}}
 
         {{-- @can('home-list')

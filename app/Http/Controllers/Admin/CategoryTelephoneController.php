@@ -20,9 +20,6 @@ class CategoryTelephoneController extends Controller
     {
         $product_categories = ProductCategory::all();
         $telephone_categories = CategoryTelephone::all();
-        // foreach ($telephone_categories as $item) {
-        //     dd($item->productCategories->name);
-        // }
 
         return view('admin.category_telephones.index', compact('product_categories', 'telephone_categories'));
     }

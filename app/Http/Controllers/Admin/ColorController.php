@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Color;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ColorController extends Controller
 {
@@ -15,7 +16,9 @@ class ColorController extends Controller
      */
     public function index()
     {
-        //
+        $colors = Color::all();
+
+        return view('admin.colors.index', compact('colors'));
     }
 
     /**
@@ -36,7 +39,11 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        
+        $colors = Color::create($data);
+
+        return redirect()->route('admin.colors.index')->with('success', $colors->name . " - rang qo'shildi!");
     }
 
     /**
@@ -68,9 +75,13 @@ class ColorController extends Controller
      * @param  \App\Models\Color  $color
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Color $color)
+    public function update(Request $request, $id)
     {
-        //
+        $colors = Color::find($id);
+        $data = $request->all();
+        $colors->update($data);
+
+        return redirect()->route('admin.colors.index')->with('success', $colors->name . " - rang tahrirlandi!");
     }
 
     /**
