@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('telephone_full_descs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('telephone_id')->constrained('product_telephones')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('title');
-            $table->string('image_url');
-            $table->text('description');
+            $table->foreignId('telephone_id')->nullable()->constrained('product_telephones')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('title')->nullable();
+            $table->string('image_url')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

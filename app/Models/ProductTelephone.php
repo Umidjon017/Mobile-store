@@ -11,8 +11,6 @@ class ProductTelephone extends Model
 {
     use HasFactory;
 
-    protected $table = ['product_telephones'];
-
     protected $fillable = [
         'telephone_category_id',
         'model',
