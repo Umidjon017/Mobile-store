@@ -10,8 +10,6 @@ class TelephoneFrontDesc extends Model
 {
     use HasFactory;
 
-    protected $table = ['telephone_front_descs'];
-
     protected $fillable = [
         'telephone_id',
         'image_url',

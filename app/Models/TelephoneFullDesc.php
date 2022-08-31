@@ -10,8 +10,6 @@ class TelephoneFullDesc extends Model
 {
     use HasFactory;
 
-    protected $table = ['telephone_full_descs'];
-
     protected $fillable = [
         'telephone_id',
         'title',

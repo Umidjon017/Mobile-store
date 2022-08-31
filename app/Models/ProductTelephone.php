@@ -40,7 +40,7 @@ class ProductTelephone extends Model
 
     public function telephoneFrontDescs(): HasMany
     {
-        return $this->hasMany(TelephoneFrontDesc::class);
+        return $this->hasMany(TelephoneFrontDesc::class, 'telephone_id');
     }
 
     public function telephoneFullDescs(): HasMany
@@ -50,6 +50,6 @@ class ProductTelephone extends Model
 
     public function telephoneSpecifications(): HasMany
     {
-        return $this->hasMany(TelephoneSpecification::class);
+        return $this->hasMany(TelephoneSpecification::class, 'telephone_id');
     }
 }

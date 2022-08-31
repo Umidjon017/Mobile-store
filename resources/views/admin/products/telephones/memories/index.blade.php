@@ -53,7 +53,7 @@
 
               <tbody>
                 @foreach ($memories as $memory)
-                <tr >
+                <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$memory->memory_main}}</td>
                     <td>{{$memory->memory_ram}}</td>

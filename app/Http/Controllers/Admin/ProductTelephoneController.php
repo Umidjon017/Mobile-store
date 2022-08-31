@@ -21,11 +21,9 @@ class ProductTelephoneController extends Controller
      */
     public function index()
     {
-        $telephone_categories = CategoryTelephone::all();
-        $colors = Color::all();
-        $memories = TelephoneMemory::all();
+        $product_telephones = ProductTelephone::all();
 
-        return view('admin.products.telephones.index', compact('telephone_categories', 'colors', 'memories'));
+        return view('admin.products.telephones.index', compact('product_telephones'));
     }
 
     /**
@@ -35,7 +33,11 @@ class ProductTelephoneController extends Controller
      */
     public function create()
     {
-        //
+        $telephone_categories = CategoryTelephone::all();
+        $colors = Color::all();
+        $memories = TelephoneMemory::all();
+
+        return view('admin.products.telephones.create', compact('telephone_categories', 'colors', 'memories'));
     }
 
     /**
@@ -46,57 +48,85 @@ class ProductTelephoneController extends Controller
      */
     public function store(Request $request)
     {
-        $pPhone = new ProductTelephone;
-        $tFrontDesc = new TelephoneFrontDesc;
-        $tSpecific = new TelephoneSpecification;
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->model);
+        $pPhone = ProductTelephone::create($data);
 
-        $pPhone->telephone_category_id = $request->telephone_category_id;
-        $pPhone->model = $request->model;
-        $pPhone->slug = Str::slug($request->model);
-        $pPhone->color_id = $request->color_id;
-        $pPhone->memory_id = $request->memory_id;
-        $pPhone->price = $request->price;
-        $pPhone->badge_new = $request->badge_new;
-        $tFrontDesc->telephone_id = $request->telephone_id;
-        $tFrontDesc->image_url = $request->image_url;
-        $tFrontDesc->description = $request->description;
-        $tSpecific->telephone_id = $request->telephone_id;
-        $tSpecific->width = $request->width;
-        $tSpecific->height = $request->height;
-        $tSpecific->thickness = $request->thickness;
-        $tSpecific->weight = $request->weight;
-        $tSpecific->material_corps = $request->material_corps;
-        $tSpecific->screen_dioganal = $request->screen_dioganal;
-        $tSpecific->pixel_density = $request->pixel_density;
-        $tSpecific->display_resolution = $request->display_resolution;
-        $tSpecific->screen_matrix = $request->screen_matrix;
-        $tSpecific->battery_type = $request->battery_type;
-        $tSpecific->battery_capacity = $request->battery_capacity;
-        $tSpecific->fast_charging = $request->fast_charging;
-        $tSpecific->wireless_charger = $request->wireless_charger;
-        $tSpecific->connector = $request->connector;
-        $tSpecific->peculliarities = $request->peculliarities;
-        $tSpecific->number_processor_cores = $request->number_processor_cores;
-        $tSpecific->video_processor = $request->video_processor;
-        $tSpecific->gpu_frequency = $request->gpu_frequency;
-        $tSpecific->cpu = $request->cpu;
-        $tSpecific->frequency = $request->frequency;
-        $tSpecific->communication_standarts = $request->communication_standarts;
-        $tSpecific->nfc = $request->nfc;
-        $tSpecific->blutooth = $request->blutooth;
-        $tSpecific->wifi = $request->wifi;
-        $tSpecific->number_sim_slots = $request->number_sim_slots;
-        $tSpecific->satellite_navigation = $request->satellite_navigation;
-        $tSpecific->main_camera = $request->main_camera;
-        $tSpecific->front_camera = $request->front_camera;
-        $tSpecific->fetures_main_camera = $request->fetures_main_camera;
-        $tSpecific->video_recording = $request->video_recording;
-        $tFrontDesc->save();
-        $tSpecific->save();
-        $pPhone->save();
+        $data['telephone_id'] = $pPhone->id;
+
+        $destination = public_path('admin/images/product-telephones/');
+        if($request->hasFile('image_url'))
+        {
+            $files = $request->file('image_url');
+        
+            foreach ($files as $file) {
+                $name = $pPhone->id.'_'.time().'.'.$file->getClientOriginalExtension();
+                $file->move($destination, $name);
+                $url = "http://localhost/admin/product-telephones/".$name;
+                
+                $pPhone->telephoneFrontDescs()->create(array(
+                    'image_url' => $url,
+                    'description' => $request->description,
+                ));
+            }
+        }
+        $pPhone->telephoneFrontDescs()->create(array(
+            'description' => $request->description,
+        ));
+        $pPhone->telephoneSpecifications()->create($data);
+
+        // $pPhone = ProductTelephone::create(array(
+        //     'telephone_category_id' => $request->telephone_category_id,
+        //     'model' => $request->model,
+        //     'slug' => Str::slug($request->model),
+        //     'color_id' => $request->color_id,
+        //     'memory_id' => $request->memory_id,
+        //     'price' => $request->price,
+        //     'badge_new' => $request->badge_new,
+        // ));
+
+        // $pPhone->telephoneFrontDescs()->create(array(
+        //     'telephone_id' => $pPhone->id,
+        //     'image_url' => $request->image_url,
+        //     'description' => $request->description,
+        // ));
+
+        // $pPhone->telephoneSpecifications()->create(array(
+        //     'telephone_id' => $pPhone->id,
+        //     'width' =>  $request->width,
+        //     'height'    =>  $request->height,
+        //     'thickness' =>  $request->thickness,
+        //     'weight'    =>  $request->weight,
+        //     'material_corps'    =>  $request->material_corps,
+        //     'screen_dioganal'   =>  $request->screen_dioganal,
+        //     'pixel_density' =>  $request->pixel_density,
+        //     'display_resolution'    =>  $request->display_resolution,
+        //     'screen_matrix' =>  $request->screen_matrix,
+        //     'battery_type'  =>  $request->battery_type,
+        //     'battery_capacity'  =>  $request->battery_capacity,
+        //     'fast_charging' =>  $request->fast_charging,
+        //     'wireless_charger'  =>  $request->wireless_charger,
+        //     'connector' =>  $request->connector,
+        //     'peculliarities'    =>  $request->peculliarities,
+        //     'number_processor_cores'    =>  $request->number_processor_cores,
+        //     'video_processor'   =>  $request->video_processor,
+        //     'gpu_frequency' =>  $request->gpu_frequency,
+        //     'cpu'   =>  $request->cpu,
+        //     'frequency' =>  $request->frequency,
+        //     'communication_standarts'   =>  $request->communication_standarts,
+        //     'nfc'   =>  $request->nfc,
+        //     'blutooth'  =>  $request->blutooth,
+        //     'wifi'  =>  $request->wifi,
+        //     'number_sim_slots'  =>  $request->number_sim_slots,
+        //     'satellite_navigation'  =>  $request->satellite_navigation,
+        //     'main_camera'   =>  $request->main_camera,
+        //     'front_camera'  =>  $request->front_camera,
+        //     'fetures_main_camera'   =>  $request->fetures_main_camera,
+        //     'video_recording'   =>  $request->video_recording,
+        // ));
 
         return redirect()->route('admin.product-telephones.index')
-            ->withSuccess(__($pPhone->model . " - telefon modeli qo'shildi!"));;
+            ->withSuccess(__($pPhone->model . " - telefon modeli qo'shildi!"));
     }
 
     /**

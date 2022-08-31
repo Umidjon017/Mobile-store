@@ -10,8 +10,6 @@ class TelephoneSpecification extends Model
 {
     use HasFactory;
 
-    protected $table = ['telephone_specifications'];
-
     protected $fillable = [
         'telephone_id',
         'width',
