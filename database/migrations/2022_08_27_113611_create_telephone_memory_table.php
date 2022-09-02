@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_telephones', function (Blueprint $table) {
+        Schema::create('telephone_memory', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('telephone_category_id')->constrained('category_telephones')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('model');
-            $table->string('slug');
-            $table->bigInteger('price');
-            $table->boolean('badge_new')->default(0);
-            $table->softDeletes();
+            $table->foreignId('telephone_id')->nullable()->constrained('product_telephones')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('memory_id')->nullable()->constrained('telephone_memories')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_telephones');
+        Schema::dropIfExists('telephone_memory');
     }
 };

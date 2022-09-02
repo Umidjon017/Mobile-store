@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class TelephoneMemory extends Model
 {
@@ -15,8 +15,8 @@ class TelephoneMemory extends Model
         'memory_ram',
     ];
 
-    public function productTelephones(): HasMany
+    public function telephones(): BelongsToMany
     {
-        return $this->hasMany(ProductTelephone::class);
+        return $this->belongsToMany(ProductTelephone::class, 'telephone_memory', 'telephone_id', 'memory_id');
     }
 }

@@ -13,7 +13,7 @@
                 <div class="modal-body">
                 
                     <div class="form-group">
-                        <label>Asosiy xotira</label>
+                        <label>{{ __("Asosiy xotira") }}</label>
                         <input type="number" class="form-control" placeholder="Asosiy xotirani kiriting" name="memory_main"  value="{{ old('memory_main') }}">
                         @error('memory_main')
                             <div class="alert alert-danger">
@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Tezkor xotira</label>
+                        <label>{{ __("Tezkor xotira") }}</label>
                         <input type="number" class="form-control" placeholder="Tezkor xotirani kiriting" name="memory_ram"  value="{{ old('memory_ram') }}">
                         @error('memory_ram')
                             <div class="alert alert-danger">

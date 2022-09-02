@@ -27,16 +27,20 @@
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                             <span>&times;</span>
                         </button>
-                        <h5><i class="icon fas fa-check"></i></h5>
-                        {{session('success')}}
+                        <h5>
+                            <i class="icon fas fa-check"></i>
+                            {{session('success')}}
+                        </h5>
                     </div>
                 </div>
             @endif
             @if (Session::has('warning'))
                 <div class="alert alert-danger alert-dismissible show fade">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true"> <span>&times;</span> </button>
-                    <h5><i class="icon fas fa-ban"></i> </h5>
-                    {{session('warning')}}
+                    <h5>
+                        <i class="icon fas fa-ban"></i>
+                        {{session('warning')}}
+                    </h5>
                 </div>
             @endif
           <div class="table-responsive">

@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ColorController;
-use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TelephoneMemoryController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductTelephoneController;
@@ -40,7 +39,7 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function (){
     Route::get('/dashboard', [AdminController::class, 'dashboard'] )->name('dashboard');
     Route::prefix('/product-categories')->name('product-categories.')->group(function() {
         Route::delete('/table/forceDelete/{id}', [ProductCategoryController::class, 'forceDelete'])->name('table.forcedelete');
-        Route::post('/table/restore', [ProductController::class, 'restore'])->name('table.restore');
+        Route::post('/table/restore', [ProductCategoryController::class, 'restore'])->name('table.restore');
         // Route::post('/table/restore-all', [ProductController::class, 'restoreAll'])->name('users.restore-all');
         Route::resource('/table', ProductCategoryController::class);
 

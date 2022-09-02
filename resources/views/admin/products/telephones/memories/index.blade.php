@@ -27,16 +27,20 @@
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                             <span>&times;</span>
                         </button>
-                        <h5><i class="icon fas fa-check"></i></h5>
-                        {{session('success')}}
+                        <h5>
+                            <i class="icon fas fa-check"></i>
+                            {{session('success')}}
+                        </h5>
                     </div>
                 </div>
             @endif
             @if (Session::has('warning'))
                 <div class="alert alert-danger alert-dismissible show fade">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true"> <span>&times;</span> </button>
-                    <h5><i class="icon fas fa-ban"></i> </h5>
-                    {{session('warning')}}
+                    <h5>
+                        <i class="icon fas fa-ban"></i>
+                        {{session('warning')}}
+                    </h5>
                 </div>
             @endif
           <div class="table-responsive">
@@ -63,7 +67,7 @@
                             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editTelephoneMemory{{$memory->id}}"><i class="fas fa-edit"></i></button>
                         {{-- @endcan --}}
                         {{-- @can('memory-delete') --}}
-                            <form action="{{route('admin.colors.destroy', $memory->id)}}" method="POST">
+                            <form action="{{route('admin.telephone-memories.destroy', $memory->id)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger deleteCat ">

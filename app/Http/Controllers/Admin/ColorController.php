@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Color;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
 
 class ColorController extends Controller
 {
@@ -43,7 +42,8 @@ class ColorController extends Controller
         
         $colors = Color::create($data);
 
-        return redirect()->route('admin.colors.index')->with('success', $colors->name . " - rang qo'shildi!");
+        return redirect()->route('admin.colors.index')
+            ->withSuccess(__("$colors->name - rang qo'shildi!"));
     }
 
     /**
@@ -81,7 +81,8 @@ class ColorController extends Controller
         $data = $request->all();
         $colors->update($data);
 
-        return redirect()->route('admin.colors.index')->with('success', $colors->name . " - rang tahrirlandi!");
+        return redirect()->route('admin.colors.index')
+            ->withSuccess(__("$colors->name - rang tahrirlandi!"));
     }
 
     /**
@@ -95,6 +96,7 @@ class ColorController extends Controller
         $color = Color::findorFail($id);
         $color->delete();
         
-        return redirect()->route('admin.colors.index')->with('warning', $color->name . " - rang o'chirildi!");
+        return redirect()->route('admin.colors.index')
+            ->withSuccess(__("$color->name - rang o'chirildi!"));
     }
 }

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\ProductCategory;
 use App\Models\CategoryTelephone;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryTelephoneRequest;
-use App\Models\ProductCategory;
 
 class CategoryTelephoneController extends Controller
 {
@@ -49,7 +49,7 @@ class CategoryTelephoneController extends Controller
         $model = CategoryTelephone::create($data);
 
         return redirect()->route('admin.product-categories.telephones.index')
-            ->withSuccess(__($model->name . " - telefon kategoriyasi qo'shildi!"));
+            ->withSuccess(__("$model->name - telefon kategoriyasi qo'shildi!"));
     }
 
     /**
@@ -89,7 +89,7 @@ class CategoryTelephoneController extends Controller
         $model->update($data);
 
         return redirect()->route('admin.product-categories.telephones.index')
-            ->withSuccess(__($model->name . " - telefon kategoriyasi tahrirlandi!"));
+            ->withSuccess(__("$model->name - telefon kategoriyasi tahrirlandi!"));
     }
 
     /**
@@ -104,7 +104,7 @@ class CategoryTelephoneController extends Controller
         $model->delete();
 
         return redirect()->route('admin.product-categories.telephones.index')
-            ->withSuccess(__($model->name . " - telefon kategoriyasi arxivlandi!"));
+            ->withSuccess(__("$model->name - telefon kategoriyasi arxivlandi!"));
     }
 
     public function forceDelete($id)
@@ -113,6 +113,6 @@ class CategoryTelephoneController extends Controller
         $model->forceDelete();
 
         return redirect()->route('admin.product-categories.telephones.index')
-            ->withSuccess(__("Mahsulot kategoriyasi o'chirildi!"));
+            ->withSuccess(__("$model->name - telefon kategoriyasi o'chirildi!"));
     }
 }

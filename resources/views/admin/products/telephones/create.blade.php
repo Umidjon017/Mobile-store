@@ -34,7 +34,7 @@
                     @csrf
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-6 col-md-3 col-lg-3">
+                            <div class="col-sm-6 col-md-2 col-lg-2">
                                 <div class="form-group ">
                                     <label>Telefon Kategoriyasiga biriktirish</label>
                                     <select name="telephone_category_id" class="form-control select2 select2-hidden-accessible"  data-placeholder="Kategoriyalarni tanlang" style="width: 100%;" data-select2-id="7" tabindex="-1" aria-hidden="true">
@@ -46,11 +46,11 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6 col-md-3 col-lg-3">
+                            <div class="col-sm-6 col-md-2 col-lg-2">
                                 <div class="form-group ">
                                     <label>Rangga biriktirish</label>
-                                    <select name="color_id" class="form-control select2 select2-hidden-accessible" multiple data-placeholder="Rangni tanlang" style="width: 100%;" data-select2-id="8" tabindex="-1" aria-hidden="true">
-                                        <option value="0">  </option>
+                                    <select name="color_id[]" class="form-control select2 select2-hidden-accessible" multiple data-placeholder="Rangni tanlang" style="width: 100%;" data-select2-id="8" tabindex="-1" aria-hidden="true">
+                                        <option value="">  </option>
                                         @foreach ($colors as $color )
                                             <option value="{{ $color->id }}">{{ $color->name }}</option>
                                         @endforeach
@@ -58,11 +58,11 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6 col-md-3 col-lg-3">
+                            <div class="col-sm-6 col-md-2 col-lg-2">
                                 <div class="form-group ">
                                     <label>Xotiraga biriktirish</label>
-                                    <select name="memory_id" class="form-control select2 select2-hidden-accessible" multiple data-placeholder="Xotirani tanlang" style="width: 100%;" data-select2-id="7" tabindex="-1" aria-hidden="true">
-                                        <option value="0"> </option>
+                                    <select name="memory_id[]" class="form-control select2 select2-hidden-accessible" multiple data-placeholder="Xotirani tanlang" style="width: 100%;" data-select2-id="7" tabindex="-1" aria-hidden="true">
+                                        <option value=""> </option>
                                         @foreach ($memories as $memory )
                                             <option value="{{$memory->id}}">{{$memory->memory_ram. '/' . $memory->memory_main}}</option>
                                         @endforeach
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6 col-md-3 col-lg-3">
+                            <div class="col-sm-6 col-md-2 col-lg-2">
                                 <div class="form-group ">
                                     <label>Yangi turdagi modelmi</label>
                                     <select name="badge_new" class="form-control select2 select2-hidden-accessible">
@@ -79,27 +79,23 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <div class="row">
-                                    <div class="col-sm-4 col-md-4 col-lg-4">
-                                        <div class="form-group ">
-                                            <label>Modeli</label>
-                                            <input type="text" class="form-control" placeholder="Modelini kiriting" name="model" >
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4 col-md-4 col-lg-4">
-                                        <div class="form-group">
-                                            <label>Narx</label>
-                                            <input type="number" class="form-control" placeholder="Narxni kiriting" name="price" >
-                                        </div>
-                                    </div>
+                            <div class="col-sm-6 col-md-2 col-lg-2">
+                                <div class="form-group ">
+                                    <label>Modeli</label>
+                                    <input type="text" class="form-control" placeholder="Modelini kiriting" name="model" >
                                 </div>
                             </div>
 
+                            <div class="col-sm-6 col-md-2 col-lg-2">
+                                <div class="form-group">
+                                    <label>Narx</label>
+                                    <input type="number" class="form-control" placeholder="Narxni kiriting" name="price" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 col-lg-4">
@@ -115,6 +111,27 @@
                                     <div class="col-sm-12 col-md-8 col-lg-8">
                                         <div class="form-group ">
                                             <label>Asosiy tavsif</label>
+                                            <textarea name="description" cols="30" rows="10">  </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-4 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Izoh rasmlari</label>
+                                            <div id="image-preview" class="image-preview">
+                                                <label for="image-upload" id="image-label">Rasm</label>
+                                                <input type="file" name="image_url[]" id="image-upload" multiple />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-sm-12 col-md-8 col-lg-8">
+                                        <div class="form-group ">
+                                            <label>Izoh tavsifi</label>
                                             <textarea name="description" cols="30" rows="10">  </textarea>
                                         </div>
                                     </div>

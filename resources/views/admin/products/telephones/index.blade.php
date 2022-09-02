@@ -90,6 +90,9 @@
                     </td>
                     <td>{{$product_telephone->created_at}}</td>
                     <td class=" d-flex justify-content-center">
+                      {{-- <a class="btn btn-primary" href="{{route('admin.product-telephones.show', $product_telephone->id)}}">
+                        <i class="fas fa-eye"></i>
+                      </a> --}}
                         {{-- @can('product-category.edit') --}}
                             <a class="btn btn-warning" href="{{route('admin.product-telephones.edit', $product_telephone->id)}}">
                                 <i class="fas fa-edit"></i>

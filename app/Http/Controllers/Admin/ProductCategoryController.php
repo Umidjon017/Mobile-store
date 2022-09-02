@@ -47,7 +47,7 @@ class ProductCategoryController extends Controller
         $model = ProductCategory::create($data);
 
         return redirect()->route('admin.product-categories.table.index')
-            ->withSuccess(__($model->name . " - mahsulot kategoriyasi qo'shildi!"));
+            ->withSuccess(__("$model->name - mahsulot kategoriyasi qo'shildi!"));
     }
 
     /**
@@ -87,7 +87,7 @@ class ProductCategoryController extends Controller
         $model->update($data);
 
         return redirect()->route('admin.product-categories.table.index')
-            ->withSuccess(__($model->name . " - mahsulot kategoriyasi tahrirlandi!"));
+            ->withSuccess(__("$model->name - mahsulot kategoriyasi tahrirlandi!"));
     }
 
     /**
@@ -102,7 +102,7 @@ class ProductCategoryController extends Controller
         $model->delete();
 
         return redirect()->route('admin.product-categories.table.index')
-            ->withSuccess(__($model->name . " - mahsulot kategoriyasi arxivlandi!"));
+            ->withSuccess(__("$model->name - mahsulot kategoriyasi arxivlandi!"));
     }
 
     public function forceDelete($id)
@@ -111,7 +111,7 @@ class ProductCategoryController extends Controller
         $model->forceDelete();
 
         return redirect()->route('admin.product-categories.table.index')
-            ->withSuccess(__("Mahsulot kategoriyasi o'chirildi!"));
+            ->withSuccess(__("$model->name - mahsulot kategoriyasi o'chirildi!"));
     }
 
     public function restore($id)

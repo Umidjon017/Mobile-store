@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ProductTelephone extends Model
 {
@@ -15,27 +16,25 @@ class ProductTelephone extends Model
         'telephone_category_id',
         'model',
         'slug',
-        'color_id',
-        'memory_id',
         'price',
         'badge_new',
     ];
 
     protected $dates = ['deleted_at'];
 
+    public function memories(): BelongsToMany
+    {
+        return $this->belongsToMany(TelephoneMemory::class, 'telephone_memory', 'telephone_id', 'memory_id');
+    }
+    
+    public function colors(): BelongsToMany
+    {
+        return $this->belongsToMany(Color::class, 'telephone_color', 'telephone_id', 'color_id');
+    }
+    
     public function CategoryTelephones(): BelongsTo
     {
         return $this->belongsTo(CategoryTelephone::class, 'telephone_category_id');
-    }
-
-    public function colors(): BelongsTo
-    {
-        return $this->belongsTo(Color::class, 'color_id');
-    }
-
-    public function memoris(): BelongsTo
-    {
-        return $this->belongsTo(TelephoneMemory::class, 'memory_id');
     }
 
     public function telephoneFrontDescs(): HasMany
@@ -45,7 +44,7 @@ class ProductTelephone extends Model
 
     public function telephoneFullDescs(): HasMany
     {
-        return $this->hasMany(TelephoneFullDesc::class);
+        return $this->hasMany(TelephoneFullDesc::class, 'telephone_id');
     }
 
     public function telephoneSpecifications(): HasMany

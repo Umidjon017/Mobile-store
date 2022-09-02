@@ -25,8 +25,8 @@
                     
                     <div class="form-group">
                         <label>{{ __("Tezkor xotira") }}</label>
-                        <input type="number" class="form-control" placeholder="Asosiy xotirani kiriting" name="memory_main"  value="{{ old('memory_main', $memory->memory_main) }}" >
-                        @error('memory_main')
+                        <input type="number" class="form-control" placeholder="Asosiy xotirani kiriting" name="memory_ram"  value="{{ old('memory_main', $memory->memory_ram) }}" >
+                        @error('memory_ram')
                             <div class="alert alert-danger">
                                 {{ $message }}
                             </div>

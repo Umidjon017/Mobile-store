@@ -44,7 +44,7 @@ class TelephoneMemoryController extends Controller
         $model = TelephoneMemory::create($data);
 
         return redirect()->route('admin.telephone-memories.index')
-            ->withSuccess(__($model->name . " - telefon xotirasi qo'shildi!"));
+            ->withSuccess(__("$model->memory_main/$model->memory_ram - telefon xotirasi qo'shildi!"));
     }
 
     /**
@@ -76,9 +76,14 @@ class TelephoneMemoryController extends Controller
      * @param  \App\Models\TelephoneMemory  $telephoneMemory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TelephoneMemory $telephoneMemory)
+    public function update(Request $request, $id)
     {
-        //
+        $model = TelephoneMemory::findOrFail($id);
+        $data = $request->all();
+        $model->update($data);
+
+        return redirect()->route('admin.telephone-memories.index')
+            ->withSuccess(__("$model->memory_main/$model->memory_ram - telefon xotirasi tahrirlandi!"));
     }
 
     /**
@@ -87,8 +92,12 @@ class TelephoneMemoryController extends Controller
      * @param  \App\Models\TelephoneMemory  $telephoneMemory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TelephoneMemory $telephoneMemory)
+    public function destroy($id)
     {
-        //
+        $model = TelephoneMemory::findOrFail($id);
+        $model->delete();
+
+        return redirect()->route('admin.telephone-memories.index')
+            ->withSuccess(__("$model->memory_main/$model->memory_ram - telefon xotirasi o'chirildi!"));
     }
 }
