@@ -90,7 +90,7 @@ class ProductTelephoneController extends Controller
             foreach ($files as $file) {
                 $name = getLastId().'_'.'front-'.$file->getClientOriginalName();
                 $file->move($destination, $name);
-                $url = "http://localhost/admin/product-telephones/".$name;
+                $url = "http://softstars.uz/admin/product-telephones/".$name;
                 $pPhone->telephoneFrontDescs()->create(array(
                     'image_url' => $url,
                 ));
@@ -109,7 +109,7 @@ class ProductTelephoneController extends Controller
             foreach ($files as $file) {
                 $name = getLastId().'_'.'full-'.$file->getClientOriginalName();
                 $file->move($destination, $name);
-                $url = "http://localhost/admin/product-telephones/".$name;
+                $url = "http://softstars.uz/admin/product-telephones/".$name;
                 $pPhone->telephoneFullDescs()->create(array(
                     'full_title' => $request->full_title,
                     'full_image_url' => $url,
@@ -195,7 +195,7 @@ class ProductTelephoneController extends Controller
             foreach ($files as $file) {
                 $name = $pPhone.'_'.$file->getClientOriginalName();
                 $file->move($destination, $name);
-                $url = "http://localhost/admin/product-telephones/".$name;
+                $url = "http://softstars.uz/admin/product-telephones/".$name;
                 $pPhone->telephoneFrontDescs()->update(array(
                     'image_url' => $url,
                 ));
