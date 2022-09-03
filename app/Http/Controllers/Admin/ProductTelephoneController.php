@@ -9,7 +9,6 @@ use App\Models\TelephoneMemory;
 use App\Models\ProductTelephone;
 use App\Models\CategoryTelephone;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 
 class ProductTelephoneController extends Controller
 {
@@ -21,8 +20,17 @@ class ProductTelephoneController extends Controller
     public function index()
     {
         $product_telephones = ProductTelephone::all();
+        $pt_trashed = ProductTelephone::onlyTrashed()->get();
 
-        return view('admin.products.telephones.index', compact('product_telephones'));
+        return view('admin.products.telephones.index', compact('product_telephones', 'pt_trashed'));
+    }
+    
+    public function archived()
+    {
+        $product_telephones = ProductTelephone::all();
+        $pt_trashed = ProductTelephone::latest()->onlyTrashed()->get();
+
+        return view('admin.products.telephones.archived', compact('product_telephones', 'pt_trashed'));
     }
 
     /**
@@ -67,16 +75,17 @@ class ProductTelephoneController extends Controller
             }
         }
 
+        function getLastId()
+        {
+            $lastId = ProductTelephone::latest()->first()->id ?: 1;
+            return $lastId;
+        }
+
         if($request->hasFile('image_url'))
         {
             $files = $request->file('image_url');
             
             $destination = public_path('admin/images/product-telephones/');
-            function getLastId()
-            {
-                $lastId = ProductTelephone::latest()->first()->id ?: 1;
-                return $lastId;
-            }
         
             foreach ($files as $file) {
                 $name = getLastId().'_'.'front-'.$file->getClientOriginalName();
@@ -89,6 +98,24 @@ class ProductTelephoneController extends Controller
             $pPhone->telephoneFrontDescs()->create(array(
                 'description' => $request->description,
             ));
+        }
+        
+        if($request->hasFile('full_image_url'))
+        {
+            $files = $request->file('full_image_url');
+            
+            $destination = public_path('admin/images/product-telephones/');
+        
+            foreach ($files as $file) {
+                $name = getLastId().'_'.'full-'.$file->getClientOriginalName();
+                $file->move($destination, $name);
+                $url = "http://localhost/admin/product-telephones/".$name;
+                $pPhone->telephoneFullDescs()->create(array(
+                    'full_title' => $request->full_title,
+                    'full_image_url' => $url,
+                    'full_description' => $request->full_description,
+                ));
+            }
         }
         $pPhone->telephoneSpecifications()->create($data);
 
@@ -120,10 +147,12 @@ class ProductTelephoneController extends Controller
         $colors = $pPhones->colors()->get();
         $memories = $pPhones->memories()->get();
         $front_descriptions = $pPhones->telephoneFrontDescs()->get();
+        $full_descriptions = $pPhones->telephoneFullDescs()->get();
         $specifications = $pPhones->telephoneSpecifications()->get();
 
         return view('admin.products.telephones.edit', compact(
-            'pPhones', 'tCategories', 'colors', 'memories', 'front_descriptions', 'specifications'
+            'pPhones', 'tCategories', 'colors', 'memories',
+            'front_descriptions', 'full_descriptions', 'specifications'
         ));
     }
 
@@ -187,8 +216,33 @@ class ProductTelephoneController extends Controller
      * @param  \App\Models\ProductTelephone  $productTelephone
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductTelephone $productTelephone)
+    public function destroy($id)
     {
-        //
+        $model = ProductTelephone::findOrFail($id);
+        $model->delete();
+
+        return back()->withSuccess(__($model->CategoryTelephones->name.' '.$model->model." - telefon modeli arxivlandi!"));
+    }
+
+    public function forceDelete($id)
+    {
+        $model = ProductTelephone::findOrFail($id);
+        $model->forceDelete();
+
+        return back()->withSuccess(__($model->CategoryTelephones->name.' '.$model->name." - telefon modeli o'chirildi!"));
+    }
+
+    public function restore($id)
+    {
+        $model = ProductTelephone::withTrashed()->find($id)->restore();
+
+        return back()->withSuccess(__("Telefon modeli arxivdan chiqarildi!"));
+    }
+
+    public function restoreAll()
+    {
+        $mode = ProductTelephone::onlyTrashed()->restore();
+  
+        return back()->withSuccess(__("Barcha telefon modellari arxivdan chiqarildi!"));
     }
 }

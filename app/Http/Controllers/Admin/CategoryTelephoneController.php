@@ -25,6 +25,15 @@ class CategoryTelephoneController extends Controller
         return view('admin.category_telephones.index', compact('product_categories', 'telephone_categories', 'tc_archived'));
     }
 
+    public function archived()
+    {
+        $product_categories = ProductCategory::all();
+        $telephone_categories = CategoryTelephone::all();
+        $tc_trashed = CategoryTelephone::latest()->onlyTrashed()->get();
+
+        return view('admin.category_telephones.archived', compact('product_categories', 'telephone_categories', 'tc_trashed'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -114,5 +123,19 @@ class CategoryTelephoneController extends Controller
 
         return redirect()->route('admin.product-categories.telephones.index')
             ->withSuccess(__("$model->name - telefon kategoriyasi o'chirildi!"));
+    }
+
+    public function restore($id)
+    {
+        $model = CategoryTelephone::withTrashed()->find($id)->restore();
+
+        return back()->withSuccess(__("Telefon kategoriyasi arxivdan chiqarildi!"));
+    }
+
+    public function restoreAll()
+    {
+        $mode = CategoryTelephone::onlyTrashed()->restore();
+  
+        return back()->withSuccess(__("Barcha telefon kategoriyalari arxivdan chiqarildi!"));
     }
 }

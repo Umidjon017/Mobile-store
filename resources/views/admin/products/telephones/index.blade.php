@@ -15,10 +15,18 @@
           <div class="card-body">
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a class="nav-link active" href="#">Barchasi <span class="badge badge-white">{{ count($product_telephones) }}</span></a>
+                <a class="nav-link {{ request()->is('admin/product-telephones') ? 'active' : ''  }}"
+                  href="{{ route('admin.product-telephones.index') }}">
+                    {{ __("Barchasi") }}
+                    <span class="badge badge-white">{{ count($product_telephones) }}</span>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Arxivlanganlar <span class="badge badge-primary">1</span></a>
+                <a class="nav-link {{ request()->is('admin/product-telephones/archived') ? 'active' : ''  }}"
+                  href="{{ route('admin.product-telephones.archived') }}">
+                  {{ __("Arxivlanganlar") }}
+                  <span class="badge badge-white">{{ count($pt_trashed) }}</span>
+                </a>
               </li>
             </ul>
           </div>
@@ -29,7 +37,7 @@
       <div class="card">
             {{-- @can('product_telephone-create') --}}
                 <div class="card-header d-flex justify-content-between">
-                    <h5 align="center">{{ __("Mahsulot Kategoriyalari jadvali") }}</h5>
+                    <h5 align="center">{{ __("Telefon mahsulotlari jadvali") }}</h5>
                     
                     <a class="btn btn-primary" href="{{ route('admin.product-telephones.create')}}">{{ __("Qo'shish") }}</a>
                 </div>
@@ -65,7 +73,8 @@
                     <th>#</th>
                     <th>Modeli</th>
                     <th>Slug</th>
-                    <th>Descriptions</th>
+                    <th>Front-Descriptions</th>
+                    <th>Full-Descriptions</th>
                     <th>Width</th>
                     <th>Created at</th>
                     <th>Amallar</th>
@@ -81,6 +90,11 @@
                     <td>
                         @foreach ($product_telephone->telephoneFrontDescs as $frontDesc)
                             {{ $frontDesc->description }}
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach ($product_telephone->telephoneFullDescs as $fullDesc)
+                            {{ $fullDesc->full_description }}
                         @endforeach
                     </td>
                     <td>
@@ -109,13 +123,13 @@
                             </form>
                         {{-- @endcan --}}
 
-                        {{-- <form action="{{route('admin.product-categories.table.forcedelete', $product_telephone->id)}}" method="POST">
+                        <form action="{{route('admin.product-telephones.forcedelete', $product_telephone->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger deleteCat ">
                               <i class="fas fa-trash-alt"></i>
                             </button>
-                        </form> --}}
+                        </form>
                     </td>
                 </tr>
                 

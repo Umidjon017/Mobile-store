@@ -12,9 +12,9 @@ class TelephoneFullDesc extends Model
 
     protected $fillable = [
         'telephone_id',
-        'title',
-        'image_url',
-        'description',
+        'full_title',
+        'full_image_url',
+        'full_description',
     ];
     
     public function productTelephones(): BelongsTo

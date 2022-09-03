@@ -119,12 +119,20 @@
                             
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label>Izoh sarlovhasi</label>
+                                            <input type="text" class="form-control" placeholder="Sarlovhani kiriting" name="full_title">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-12 col-md-4 col-lg-4">
                                         <div class="form-group">
                                             <label>Izoh rasmlari</label>
                                             <div id="image-preview" class="image-preview">
                                                 <label for="image-upload" id="image-label">Rasm</label>
-                                                <input type="file" name="image_url[]" id="image-upload" multiple />
+                                                <input type="file" name="full_image_url[]" id="image-upload" multiple />
                                             </div>
                                         </div>
                                     </div>
@@ -132,7 +140,7 @@
                                     <div class="col-sm-12 col-md-8 col-lg-8">
                                         <div class="form-group ">
                                             <label>Izoh tavsifi</label>
-                                            <textarea name="description" cols="30" rows="10">  </textarea>
+                                            <textarea name="full_description" cols="30" rows="6">  </textarea>
                                         </div>
                                     </div>
                                 </div>

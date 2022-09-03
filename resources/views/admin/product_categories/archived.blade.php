@@ -14,20 +14,20 @@
         <div class="card mb-0">
           <div class="card-body">
             <ul class="nav nav-pills">
-              <li class="nav-item">
-                <a class="nav-link {{ request()->is('admin/product-categories/table') ? 'active' : ''  }}"
-                  href="{{ route('admin.product-categories.table.index') }}">
-                    {{ __("Barchasi") }}
-                    <span class="badge badge-white">{{ count($product_categories) }}</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link {{ request()->is('admin/product-categories/archived') ? 'active' : ''  }}"
-                  href="{{ route('admin.product-categories.table.archived') }}">
-                  {{ __("Arxivlanganlar") }}
-                  <span class="badge badge-white">{{ count($pc_archived) }}</span>
-                </a>
-              </li>
+                <li class="nav-item">
+                  <a class="nav-link {{ request()->is('admin/product-categories/table') ? 'active' : ''  }}"
+                    href="{{ route('admin.product-categories.table.index') }}">
+                      {{ __("Barchasi") }}
+                      <span class="badge badge-white">{{ count($product_categories) }}</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link {{ request()->is('admin/product-categories/table/archived') ? 'active' : ''  }}"
+                    href="{{ route('admin.product-categories.table.archived') }}">
+                    {{ __("Arxivlanganlar") }}
+                    <span class="badge badge-white">{{ count($pc_trashed) }}</span>
+                  </a>
+                </li>
             </ul>
           </div>
         </div>
@@ -35,11 +35,11 @@
 
     <div class="col-sm-12 col-md-12 col-lg-12 mt-4">
       <div class="card">
-            {{-- @can('product_category-create') --}}
+            {{-- @can('pc_trash-create') --}}
                 <div class="card-header d-flex justify-content-between">
                     <h5 align="center">{{ __("Mahsulot Kategoriyalari jadvali") }}</h5>
-                    
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductCategory">{{ __("Qo'shish") }}</button>
+
+                    <a class="btn btn-success" href="{{ route('admin.product-categories.table.restore.all') }}">{{ __("Barchasini arxivdan chiqarish") }}</a>
                 </div>
             {{-- @endcan --}}
 
@@ -79,28 +79,23 @@
               </thead>
 
               <tbody>
-                @foreach ($product_categories as $product_category)
+                @foreach ($pc_trashed as $pc_trash)
                 <tr >
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$product_category->name}}</td>
-                    <td>{{$product_category->slug}}</td>
-                    <td>{{$product_category->created_at}}</td>
+                    <td>{{$pc_trash->name}}</td>
+                    <td>{{$pc_trash->slug}}</td>
+                    <td>{{$pc_trash->created_at}}</td>
                     <td class=" d-flex justify-content-center">
-                        {{-- @can('product-category.edit') --}}
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editProductCategory{{$product_category->id}}"><i class="fas fa-edit"></i></button>
+                        {{-- @can('pc_trash-delete') --}}                            
+                        <form action="{{route('admin.product-categories.table.restore', $pc_trash->id)}}">
+                            @csrf
+                            <button type="submit" class="btn btn-success deleteCat">
+                                <i class="far fa-window-restore"></i>
+                            </button>
+                        </form>
                         {{-- @endcan --}}
 
-                        {{-- @can('product_category-delete') --}}                            
-                            <form action="{{route('admin.product-categories.table.destroy', $product_category->id)}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-secondary deleteCat ">
-                                  <i class="fas fa-cloud-upload-alt"></i>
-                                </button>
-                            </form>
-                        {{-- @endcan --}}
-
-                        <form action="{{route('admin.product-categories.table.forcedelete', $product_category->id)}}" method="POST">
+                        <form action="{{route('admin.product-categories.table.forcedelete', $pc_trash->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger deleteCat ">
@@ -109,13 +104,9 @@
                         </form>
                     </td>
                 </tr>
-                
-                @include('admin.product_categories.edit')
 
                 @endforeach
               </tbody>
-
-              @include('admin.product_categories.create')
 
             </table>
           </div>

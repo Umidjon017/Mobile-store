@@ -23,6 +23,14 @@ class ProductCategoryController extends Controller
         return view('admin.product_categories.index', compact('product_categories', 'pc_archived'));
     }
 
+    public function archived()
+    {
+        $product_categories = ProductCategory::all();
+        $pc_trashed = ProductCategory::latest()->onlyTrashed()->get();
+
+        return view('admin.product_categories.archived', compact('product_categories', 'pc_trashed'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -116,9 +124,15 @@ class ProductCategoryController extends Controller
 
     public function restore($id)
     {
-        ProductCategory::where('id', $id)->withTrashed()->restore();
+        $model = ProductCategory::withTrashed()->find($id)->restore();
 
-        return redirect()->route('admin.product-categories.table.index', ['status' => 'archived'])
-            ->withSuccess(__('User restored successfully.'));
+        return back()->withSuccess(__("Mahsulot kategoriyasi arxivdan chiqarildi!"));
+    }
+
+    public function restoreAll()
+    {
+        $mode = ProductCategory::onlyTrashed()->restore();
+  
+        return back()->withSuccess(__("Barcha mahsulot kategoriyalari arxivdan chiqarildi!"));
     }
 }

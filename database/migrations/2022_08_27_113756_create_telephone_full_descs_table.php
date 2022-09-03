@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('telephone_full_descs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('telephone_id')->nullable()->constrained('product_telephones')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('title')->nullable();
-            $table->string('image_url')->nullable();
-            $table->text('description')->nullable();
+            $table->string('full_title')->nullable();
+            $table->string('full_image_url')->nullable();
+            $table->text('full_description')->nullable();
             $table->timestamps();
         });
     }
